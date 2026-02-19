@@ -1,10 +1,10 @@
 import { motion, AnimatePresence } from "framer-motion"
 
 // 🔹 images import
-import step1 from "../../../assets/images/how-we-work/step1.png";
-import step2 from "../../../assets/images/how-we-work/step2.png";
-import step3 from "../../../assets/images/how-we-work/step3.png";
-import step4 from "../../../assets/images/how-we-work/step4.png";
+import step1 from "../../../../assets/images/how-we-work/step1.png";
+import step2 from "../../../../assets/images/how-we-work/step2.png";
+import step3 from "../../../../assets/images/how-we-work/step3.png";
+import step4 from "../../../../assets/images/how-we-work/step4.png";
 
 
 
