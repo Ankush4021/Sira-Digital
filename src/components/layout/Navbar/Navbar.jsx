@@ -1,76 +1,104 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
-    const [open, setOpen] = useState(false);
+    const [scrolled, setScrolled] = useState(false);
+    const [menuOpen, setMenuOpen] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            setScrolled(window.scrollY > 50);
+        };
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
+
+    const navLinks = [
+        { label: "Home", to: "/" },
+        { label: "About", to: "/about" },
+        { label: "Services", to: "/services" },
+        { label: "Contact", to: "/contact" },
+    ];
 
     return (
-        <nav className="fixed top-0 w-full z-50 backdrop-blur-md bg-[#0b0717]/80 border-b border-white/10">
-
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
+        <nav
+            className={`fixed w-full top-0 left-0 z-50 transition-all duration-300 ${
+                scrolled
+                    ? "bg-black/70 backdrop-blur-lg border-b border-white/10 shadow-lg"
+                    : "bg-transparent border-b border-transparent"
+            }`}
+        >
+            {/* Main Bar */}
+            <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
 
                 {/* Logo */}
-                <h1 className="text-lg sm:text-2xl font-bold text-white">
-                    SIRA <span className="text-purple-500">Digital</span>
-                </h1>
-
-                {/* Desktop Menu */}
-                <ul className="hidden md:flex gap-8 text-slate-200 font-semibold">
-                    <li className="hover:text-purple-400 transition">
-                        <Link to="/">Home</Link>
-                    </li>
-
-                    <li className="hover:text-purple-400 transition">
-                        <Link to="/about">About</Link>
-                    </li>
-
-                    <li className="hover:text-purple-400 transition">
-                        <Link to="/services">Services</Link>
-                    </li>
-                    <li className="hover:text-purple-400 transition">
-                        <Link to="/contact">Contact</Link>
-                    </li>
-                </ul>
-
-
-                {/* CTA Button */}
-                <button className="hidden md:block px-5 py-2 rounded-lg bg-purple-600 text-white hover:bg-purple-500 transition cursor-pointer">
-                    Get Started
-                </button>
-
-                {/* Mobile Button */}
-                <button
-                    onClick={() => setOpen(!open)}
-                    className="md:hidden text-sm border px-4 py-2 rounded-lg text-white border-white/40"
+                <Link
+                    to="/"
+                    className="text-xl font-extrabold tracking-tight bg-linear-to-r from-white via-purple-400 to-emerald-400 bg-clip-text text-transparent"
                 >
-                    Menu
+                    SIRA Digital
+                </Link>
+
+                {/* Desktop Links */}
+                <div className="hidden md:flex items-center gap-9">
+                    {navLinks.map((link) => (
+                        <Link
+                            key={link.label}
+                            to={link.to}
+                            className="relative text-sm font-medium text-white/70 hover:text-white transition-colors duration-200 group"
+                        >
+                            {link.label}
+                            {/* Underline animation */}
+                            <span className="absolute -bottom-1 left-0 w-0 h-px bg-linear-to-r from-purple-400 to-emerald-400 group-hover:w-full transition-all duration-300 rounded-full" />
+                        </Link>
+                    ))}
+
+                    {/* CTA Button */}
+                    <Link
+                        to="/contact"
+                        className="text-sm font-medium text-white px-5 py-2 rounded-full border border-white/20 bg-white/10 hover:bg-white/20 hover:border-purple-400/50 backdrop-blur-sm transition-all duration-200 hover:-translate-y-0.5 whitespace-nowrap"
+                    >
+                        Start a Project →
+                    </Link>
+                </div>
+
+                {/* Hamburger (Mobile) */}
+                <button
+                    className="md:hidden flex flex-col gap-1.5 p-1 cursor-pointer"
+                    onClick={() => setMenuOpen(!menuOpen)}
+                    aria-label="Toggle menu"
+                >
+                    <span className={`block w-6 h-0.5 bg-white rounded-full transition-all duration-300 ${menuOpen ? "translate-y-2 rotate-45" : ""}`} />
+                    <span className={`block w-6 h-0.5 bg-white rounded-full transition-all duration-300 ${menuOpen ? "opacity-0" : ""}`} />
+                    <span className={`block w-6 h-0.5 bg-white rounded-full transition-all duration-300 ${menuOpen ? "-translate-y-2 -rotate-45" : ""}`} />
                 </button>
             </div>
 
-            {/* Mobile Dropdown */}
-            {open && (
-                <div className="md:hidden bg-[#0b0717] border-t border-white/10">
-                    <ul className="flex flex-col p-4 gap-4 text-white font-semibold">
-                        <li className="hover:text-purple-400 cursor-pointer transition">
-                            <Link to="/">Home</Link>
-                        </li>
-                        <li className="hover:text-purple-400 cursor-pointer transition">
-                            <Link to="/about">About</Link>
-                        </li>
-                        <li className="hover:text-purple-400 cursor-pointer transition">
-                            <Link to="/services">Services</Link>
-                        </li>
-                        <li className="hover:text-purple-400 cursor-pointer transition">
-                            <Link to="/contact">Contact</Link>
-                        </li>
-
-                        <button className="mt-2 bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-500 transition">
-                            Get Started
-                        </button>
-                    </ul>
-                </div>
-            )}
-        </nav>
+            {/* Mobile Menu */}
+            <div
+                className={`md:hidden flex flex-col bg-black/95 backdrop-blur-lg border-t border-white/10 px-6 overflow-hidden transition-all duration-300 ${
+                    menuOpen ? "max-h-96 py-4" : "max-h-0"
+                }`}
+            >
+                {navLinks.map((link) => (
+                    <Link
+                        key={link.label}
+                        to={link.to}
+                        onClick={() => setMenuOpen(false)}
+                        className="text-white/80 hover:text-white text-base font-medium py-3 border-b border-white/10 last:border-none transition-colors duration-200"
+                    >
+                        {link.label}
+                    </Link>
+                ))}
+                <Link
+                    to="/contact"
+                    onClick={() => setMenuOpen(false)}
+                    className="text-purple-400 font-semibold py-3 transition-colors duration-200"
+                >
+                    Start a Project →
+                </Link>
+            </div>
+       </nav>
     );
 };
 

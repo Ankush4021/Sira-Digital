@@ -1,19 +1,57 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 
 <head>
+  <!-- Basic -->
   <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="preload" href="/fonts/inter.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" as="image" href="/src/assets/images/BgImgHero.webp">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0f0a1d" />
 
+  <!-- Title (VERY IMPORTANT for SEO) -->
+  <title>SIRA Digital | Web Design & Development Agency</title>
 
-  <title>Sira Digital</title>
+  <!-- Meta SEO -->
+  <meta name="description"
+    content="SIRA Digital is a web design and development agency helping startups and businesses build fast, scalable, and modern websites that drive growth." />
+
+  <meta name="keywords"
+    content="web design, web development, digital agency, frontend developer, react developer, business website, startup website" />
+
+  <meta name="author" content="SIRA Digital" />
+
+  <!-- Open Graph (for sharing on WhatsApp, LinkedIn etc.) -->
+  <meta property="og:title" content="SIRA Digital | Web Design & Development Agency" />
+  <meta property="og:description"
+    content="We design and build clean, fast, and scalable websites for startups and businesses." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://yourdomain.com/" />
+  <meta property="og:image" content="https://yourdomain.com/og-image.jpg" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="SIRA Digital" />
+  <meta name="twitter:description"
+    content="Modern web design & development agency for growing businesses." />
+  <meta name="twitter:image" content="https://yourdomain.com/og-image.jpg" />
+
+  <!-- Favicon (replace vite.svg) -->
+  <link rel="icon" href="/favicon.ico" />
+
+  <!-- Fonts (optimized preload) -->
+  <link rel="preload" href="/fonts/inter.woff2" as="font" type="font/woff2" crossorigin />
+
+  <!-- Preconnect (faster loading if using CDN/fonts later) -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <!-- Canonical URL (IMPORTANT for SEO) -->
+  <link rel="canonical" href="https://yourdomain.com/" />
+
 </head>
 
 <body>
   <div id="root"></div>
+
+  <!-- Main Script -->
   <script type="module" src="/src/main.jsx"></script>
 </body>
 

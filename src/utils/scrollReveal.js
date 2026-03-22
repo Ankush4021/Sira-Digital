@@ -3,8 +3,11 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export const initScrollReveal = (scope) => {
+export const initScrollReveal = (scope = document.body) => {
   if (!scope) return;
+
+  // Kill ALL existing triggers before re-init to prevent stacking
+  ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
 
   const elements = scope.querySelectorAll(".reveal-up");
 
